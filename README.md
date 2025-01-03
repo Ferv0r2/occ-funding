@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OCC Funding
 
-## Getting Started
+> Cloud funding + Block chain (DAO, SBT)
 
-First, run the development server:
+### Overview
+This project combines **crowd-funding** with blockchain technology to create a transparent and secure investment platform for both project operators and contributors.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Operators can issue SBT (Soul Bound Token) for each project and manage progress through milestones.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Contributors (backers) can vote on whether to continue the project at each milestone, and if the project fails, the invested funds are safely returned to the contributors.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- SBT Issuance
 
-## Learn More
+    Each crowd-funding project issues a unique SBT.
+    When backers invest in the project, the SBT is bound to their wallet address, serving as proof of ownership.
+    Milestone-Based Funding Structure
 
-To learn more about Next.js, take a look at the following resources:
+    Operators define multiple milestones, including the percentage of the total budget allocated to each.
+    If the funding goal is not met, the project automatically terminates, and all contributions are returned to the backers.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Voting Mechanism
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    At each milestone, backers cast votes on whether the project should continue.
+    If there are more negative votes than positive ones, the project terminates, and remaining funds are refunded.
 
-## Deploy on Vercel
+- Dashboard
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    Operator: Monitors overall funding progress, milestone status, and vote results through an administrative dashboard.
+    Backer: Views personal investments, milestone progress, and voting status in a user-centric dashboard.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Escrow-Like Refund System
+
+    All contributed funds are locked in a smart contract and only released to the operator if each milestone passes the voting process.
+    If the project is halted, the contract automatically refunds the contributors.
