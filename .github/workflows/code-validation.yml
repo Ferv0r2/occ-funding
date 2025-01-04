@@ -1,0 +1,35 @@
+name: Lint and Type-Check
+
+on:
+  pull_request:
+    branches:
+      - main
+      - dev
+      - 'feat/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # 2. Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      # 3. Install pnpm
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      # 4. Install Dependencies
+      - name: Install Dependencies
+        run: pnpm install
+
+      # 5. Run Lint and Type-Check
+      - name: Lint and Type-Check
+        run: pnpm validate
