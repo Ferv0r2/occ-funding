@@ -1,0 +1,40 @@
+name: Lint and Type-Check
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+      - 'feature/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x]
+
+    steps:
+      # 1. Checkout the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # 2. Setup Node.js
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      # 3. Install pnpm
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      # 4. Install Dependencies
+      - name: Install Dependencies
+        run: pnpm install
+
+      # 5. Run Lint and Type-Check
+      - name: Lint and Type-Check
+        run: pnpm validate
