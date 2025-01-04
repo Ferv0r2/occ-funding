@@ -36,12 +36,12 @@ Backer: Views personal investments, milestone progress, and voting status in a u
 All contributed funds are locked in a smart contract and only released to the operator if each milestone passes the voting process.
 If the project is halted, the contract automatically refunds the contributors.
 
-## 📂 Folder Breakdown
+## 📂 Folder Structure
 
 This project leverages App Router
 
 <details>
-<summary>Folder Breakdown (Click to Expand)</summary>
+<summary>View details (Click to Expand)</summary>
 
 ```
 occ-funding/
