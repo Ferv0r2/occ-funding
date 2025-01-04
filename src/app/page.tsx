@@ -1,8 +1,25 @@
+'use client';
+
+import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 
+const fetchUser = async (): Promise<{ id: string }> => {
+  const res = await fetch('/api/user');
+  if (!res.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return res.json();
+};
+
 export default function Home() {
+  const { data: user } = useQuery<{ id: string }, Error>({
+    queryKey: ['user'],
+    queryFn: fetchUser,
+  });
+
   return (
     <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20">
+      {JSON.stringify(user, null, 2)}
       <main className="row-start-2 flex flex-col items-center gap-8 sm:items-start">
         <Image
           className="dark:invert"
