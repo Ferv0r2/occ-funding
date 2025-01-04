@@ -35,7 +35,8 @@ const eslintConfig = [
             { pattern: 'react', group: 'builtin' },
             { pattern: '@/components/**', group: 'internal' },
             { pattern: '@/hooks/**', group: 'internal' },
-            { pattern: '@/util/**', group: 'internal' },
+            { pattern: '@/lib/**', group: 'internal' },
+            { pattern: '@/types/**', group: 'internal' },
           ],
           alphabetize: {
             order: 'asc',
