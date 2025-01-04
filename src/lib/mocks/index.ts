@@ -4,7 +4,6 @@ export const initMSW = async () => {
     server.listen();
   } else {
     const { worker } = await import('./browser');
-    console.log('browser worker', worker);
     worker.start({
       onUnhandledRequest: 'bypass',
     });
