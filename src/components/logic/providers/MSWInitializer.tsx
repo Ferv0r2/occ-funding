@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { initMSW } from '@/lib/mocks';
 
-const MSWInitializer: React.FC = () => {
+export const MSWInitializer: FC = () => {
   useEffect(() => {
     if (process.env.NEXT_PUBLIC_MODE === 'msw') {
       initMSW();
@@ -12,5 +12,3 @@ const MSWInitializer: React.FC = () => {
 
   return null;
 };
-
-export default MSWInitializer;
