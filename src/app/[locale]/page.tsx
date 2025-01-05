@@ -2,6 +2,8 @@
 
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { LanguageSwitcher } from '@/components/logic/switch/LanguageSwitcher';
 
 const fetchUser = async (): Promise<{ id: string }> => {
   const res = await fetch('/api/user');
@@ -11,15 +13,40 @@ const fetchUser = async (): Promise<{ id: string }> => {
   return res.json();
 };
 
+const CODE_PATH = 'src/app/[locale]/page.tsx';
+
 export default function Home() {
-  const { data: user } = useQuery<{ id: string }, Error>({
+  const t = useTranslations('Home');
+  const { data: user, isLoading } = useQuery<{ id: string }, Error>({
     queryKey: ['user'],
     queryFn: fetchUser,
   });
 
   return (
-    <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20">
-      {JSON.stringify(user, null, 2)}
+    <div className="grid min-h-screen grid-rows-[auto_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20">
+      <section className="flex w-full max-w-md flex-col items-center gap-6 rounded-lg bg-slate-200 p-6 shadow-md">
+        {/* Header */}
+        <h1 className="text-3xl font-bold text-gray-800">TEST AREA</h1>
+
+        {/* MSW Test Section */}
+        <div className="w-full rounded-md bg-white p-4 shadow-inner">
+          <h2 className="mb-2 text-xl font-semibold text-gray-700">
+            MSW Test:
+          </h2>
+          <pre className="overflow-auto rounded bg-gray-100 p-3 text-sm text-gray-600">
+            {isLoading ? 'loading...' : JSON.stringify(user, null, 2)}
+          </pre>
+        </div>
+
+        {/* Intl Test Section */}
+        <div className="w-full rounded-md bg-white p-4 shadow-inner">
+          <h2 className="mb-2 text-xl font-semibold text-gray-700">
+            Intl Test:
+          </h2>
+          <LanguageSwitcher />
+        </div>
+      </section>
+
       <main className="row-start-2 flex flex-col items-center gap-8 sm:items-start">
         <Image
           className="dark:invert"
@@ -31,13 +58,15 @@ export default function Home() {
         />
         <ol className="list-inside list-decimal text-center font-[family-name:var(--font-geist-mono)] text-sm sm:text-left">
           <li className="mb-2">
-            Get started by editing{' '}
-            <code className="rounded bg-black/[.05] px-1 py-0.5 font-semibold dark:bg-white/[.06]">
-              src/app/page.tsx
-            </code>
-            .
+            {t.rich('get_start', {
+              link: () => (
+                <code className="rounded bg-black/[.05] px-1 py-0.5 font-semibold dark:bg-white/[.06]">
+                  {CODE_PATH}
+                </code>
+              ),
+            })}
           </li>
-          <li>Save and see your changes instantly.</li>
+          <li>{t('hot_reload')}</li>
         </ol>
 
         <div className="flex flex-col items-center gap-4 sm:flex-row">
@@ -54,7 +83,7 @@ export default function Home() {
               width={20}
               height={20}
             />
-            Deploy now
+            {t('deploy')}
           </a>
           <a
             className="flex h-10 items-center justify-center rounded-full border border-solid border-black/[.08] px-4 text-sm transition-colors hover:border-transparent hover:bg-[#f2f2f2] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] sm:h-12 sm:min-w-44 sm:px-5 sm:text-base"
@@ -62,7 +91,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Read our docs
+            {t('docs')}
           </a>
         </div>
       </main>
@@ -80,7 +109,7 @@ export default function Home() {
             width={16}
             height={16}
           />
-          Learn
+          {t('learn')}
         </a>
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
@@ -95,7 +124,7 @@ export default function Home() {
             width={16}
             height={16}
           />
-          Examples
+          {t('examples')}
         </a>
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
@@ -110,7 +139,7 @@ export default function Home() {
             width={16}
             height={16}
           />
-          Go to nextjs.org →
+          {t('go_to_nextjs')}
         </a>
       </footer>
     </div>
