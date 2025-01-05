@@ -1,0 +1,11 @@
+{
+  "Home": {
+    "get_start": "Get started by editing <link></link>.",
+    "hot_reload": "Save and see your changes instantly.",
+    "deploy": "Deploy now",
+    "docs": "Read our docs",
+    "learn": "Learn",
+    "examples": "Examples",
+    "go_to_nextjs": "Go to nextjs.org →"
+  }
+}
