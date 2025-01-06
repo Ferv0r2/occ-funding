@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     images: ['/banners/banner.png'],
   },
   icons: {
-    icon: './favicon.ico',
+    icon: '/favicon.ico',
     apple: '/apple-icon.png',
   },
   manifest: '/site.webmanifest',
