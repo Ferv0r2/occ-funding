@@ -8,6 +8,10 @@
     "explorer_projects": "Explore Projects",
     "start_project": "Start a Project",
     "hot_projects": "Hot Projects",
-    "loading_project": "Loading Projects..."
+    "nearing_end_projects": "Projects Nearing Funding End",
+    "loading_project": "Loading Projects...",
+    "join_funding": "Join the Future of Funding",
+    "join_funding_sub": "Discover groundbreaking projects, support innovators, and be part of the next big thing.",
+    "get_start": "Get Started Now"
   }
 }

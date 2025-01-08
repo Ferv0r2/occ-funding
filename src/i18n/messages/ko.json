@@ -8,6 +8,10 @@
     "explorer_projects": "프로젝트 살펴보기",
     "start_project": "프로젝트 시작하기",
     "hot_projects": "인기 있는 프로젝트",
-    "loading_project": "프로젝트 로딩 중..."
+    "nearing_end_projects": "펀딩 종료 직전 프로젝트",
+    "loading_project": "프로젝트 로딩 중...",
+    "join_funding": "미래의 펀딩에 참여하기",
+    "join_funding_sub": "획기적인 프로젝트를 발견하고, 혁신가를 지원하며, 차세대 혁신의 일원이 되어 보세요.",
+    "get_start": "시작하기"
   }
 }
