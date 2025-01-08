@@ -1,19 +1,12 @@
 'use client';
 
-import { useQueries } from '@tanstack/react-query';
-import Image from 'next/image';
+import { useQuery } from '@tanstack/react-query';
+import { ArrowRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { ProjectCard } from '@/components/cards/ProjectCard';
-import { LanguageSwitcher } from '@/components/logic/switch/LanguageSwitcher';
+import { Button } from '@/components/ui/button';
+import { Link } from '@/i18n/routing';
 import type { IProject } from '@/types/project/IProject';
-
-const fetchUser = async (): Promise<{ id: string }> => {
-  const res = await fetch('/api/user');
-  if (!res.ok) {
-    throw new Error('Network response was not ok');
-  }
-  return res.json();
-};
 
 const fetchProjects = async (): Promise<IProject[]> => {
   const res = await fetch('/api/projects');
@@ -23,162 +16,53 @@ const fetchProjects = async (): Promise<IProject[]> => {
   return res.json();
 };
 
-const CODE_PATH = 'src/app/[locale]/page.tsx';
-
 export default function Home() {
   const t = useTranslations('Home');
 
-  const results = useQueries({
-    queries: [
-      {
-        queryKey: ['user'],
-        queryFn: fetchUser,
-      },
-      {
-        queryKey: ['projects'],
-        queryFn: fetchProjects,
-      },
-    ],
+  const { isLoading: isProjectsLoading, data: projects } = useQuery({
+    queryKey: ['projects'],
+    queryFn: fetchProjects,
   });
 
-  const [
-    { data: user, isLoading: isUserLoading },
-    { data: projects, isLoading: isProjectsLoading },
-  ] = results;
-
   return (
-    <div className="grid min-h-screen grid-rows-[auto_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20">
+    <div className="grid min-h-screen grid-rows-[auto_1fr_20px] items-center justify-items-center gap-16 pb-20 font-[family-name:var(--font-geist-sans)]">
+      <section className="w-full bg-gradient-to-b from-primary/5 to-primary/10 py-12 md:py-24 lg:py-32 xl:py-48">
+        <div className="container px-4 md:px-6">
+          <div className="flex flex-col items-center space-y-4 text-center">
+            <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+              {t('title')}
+            </h1>
+            <p className="mx-auto max-w-[700px] text-gray-500 dark:text-gray-400 md:text-xl">
+              {t('description')}
+            </p>
+            <div className="space-x-4">
+              <Link href="/projects">
+                <Button size="lg">
+                  {t('explorer_projects')}
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+              <Link href="/create">
+                <Button size="lg" variant="outline">
+                  {t('start_project')}
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
       <div className="container mx-auto py-8">
-        <h1 className="mb-6 text-3xl font-bold">Explore Projects</h1>
+        <h1 className="mb-6 text-3xl font-bold">{t('hot_projects')}</h1>
         {isProjectsLoading ? (
-          <div>Loading Projects...</div>
+          <div>{t('loading_project')}</div>
         ) : (
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {projects?.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
           </div>
         )}
       </div>
-
-      <section className="flex w-full max-w-md flex-col items-center gap-6 rounded-lg bg-slate-200 p-6 shadow-md">
-        {/* Header */}
-        <h1 className="text-3xl font-bold text-gray-800">TEST AREA</h1>
-
-        {/* MSW Test Section */}
-        <div className="w-full rounded-md bg-white p-4 shadow-inner">
-          <h2 className="mb-2 text-xl font-semibold text-gray-700">
-            MSW Test:
-          </h2>
-          <pre className="overflow-auto rounded bg-gray-100 p-3 text-sm text-gray-600">
-            {isUserLoading ? 'loading...' : JSON.stringify(user, null, 2)}
-          </pre>
-        </div>
-
-        {/* Intl Test Section */}
-        <div className="w-full rounded-md bg-white p-4 shadow-inner">
-          <h2 className="mb-2 text-xl font-semibold text-gray-700">
-            Intl Test:
-          </h2>
-          <LanguageSwitcher />
-        </div>
-      </section>
-
-      <main className="row-start-2 flex flex-col items-center gap-8 sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-center font-[family-name:var(--font-geist-mono)] text-sm sm:text-left">
-          <li className="mb-2">
-            {t.rich('get_start', {
-              link: () => (
-                <code className="rounded bg-black/[.05] px-1 py-0.5 font-semibold dark:bg-white/[.06]">
-                  {CODE_PATH}
-                </code>
-              ),
-            })}
-          </li>
-          <li>{t('hot_reload')}</li>
-        </ol>
-
-        <div className="flex flex-col items-center gap-4 sm:flex-row">
-          <a
-            className="flex h-10 items-center justify-center gap-2 rounded-full border border-solid border-transparent bg-foreground px-4 text-sm text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] sm:h-12 sm:px-5 sm:text-base"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            {t('deploy')}
-          </a>
-          <a
-            className="flex h-10 items-center justify-center rounded-full border border-solid border-black/[.08] px-4 text-sm transition-colors hover:border-transparent hover:bg-[#f2f2f2] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] sm:h-12 sm:min-w-44 sm:px-5 sm:text-base"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {t('docs')}
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex flex-wrap items-center justify-center gap-6">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          {t('learn')}
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          {t('examples')}
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          {t('go_to_nextjs')}
-        </a>
-      </footer>
     </div>
   );
 }
