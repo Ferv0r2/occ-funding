@@ -1,12 +1,22 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useQueries } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { ProjectCard } from '@/components/cards/ProjectCard';
 import { LanguageSwitcher } from '@/components/logic/switch/LanguageSwitcher';
+import type { IProject } from '@/types/project/IProject';
 
 const fetchUser = async (): Promise<{ id: string }> => {
   const res = await fetch('/api/user');
+  if (!res.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return res.json();
+};
+
+const fetchProjects = async (): Promise<IProject[]> => {
+  const res = await fetch('/api/projects');
   if (!res.ok) {
     throw new Error('Network response was not ok');
   }
@@ -17,13 +27,40 @@ const CODE_PATH = 'src/app/[locale]/page.tsx';
 
 export default function Home() {
   const t = useTranslations('Home');
-  const { data: user, isLoading } = useQuery<{ id: string }, Error>({
-    queryKey: ['user'],
-    queryFn: fetchUser,
+
+  const results = useQueries({
+    queries: [
+      {
+        queryKey: ['user'],
+        queryFn: fetchUser,
+      },
+      {
+        queryKey: ['projects'],
+        queryFn: fetchProjects,
+      },
+    ],
   });
+
+  const [
+    { data: user, isLoading: isUserLoading },
+    { data: projects, isLoading: isProjectsLoading },
+  ] = results;
 
   return (
     <div className="grid min-h-screen grid-rows-[auto_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20">
+      <div className="container mx-auto py-8">
+        <h1 className="mb-6 text-3xl font-bold">Explore Projects</h1>
+        {isProjectsLoading ? (
+          <div>Loading Projects...</div>
+        ) : (
+          <div className="grid gap-6 lg:grid-cols-3">
+            {projects?.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+        )}
+      </div>
+
       <section className="flex w-full max-w-md flex-col items-center gap-6 rounded-lg bg-slate-200 p-6 shadow-md">
         {/* Header */}
         <h1 className="text-3xl font-bold text-gray-800">TEST AREA</h1>
@@ -34,7 +71,7 @@ export default function Home() {
             MSW Test:
           </h2>
           <pre className="overflow-auto rounded bg-gray-100 p-3 text-sm text-gray-600">
-            {isLoading ? 'loading...' : JSON.stringify(user, null, 2)}
+            {isUserLoading ? 'loading...' : JSON.stringify(user, null, 2)}
           </pre>
         </div>
 
