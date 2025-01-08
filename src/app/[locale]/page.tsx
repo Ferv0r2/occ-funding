@@ -27,7 +27,7 @@ export default function Home() {
   return (
     <div className="grid min-h-screen grid-rows-[auto_1fr_20px] items-center justify-items-center gap-16 pb-20 font-[family-name:var(--font-geist-sans)]">
       <section className="w-full bg-gradient-to-b from-primary/5 to-primary/10 py-12 md:py-24 lg:py-32 xl:py-48">
-        <div className="container px-4 md:px-6">
+        <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-col items-center space-y-4 text-center">
             <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
               {t('title')}
