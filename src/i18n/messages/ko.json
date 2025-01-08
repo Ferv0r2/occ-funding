@@ -1,11 +1,17 @@
 {
+  "Header": {
+    "project": "프로젝트"
+  },
   "Home": {
-    "get_start": "<link></link>를 편집하여 시작하기.",
-    "hot_reload": "변경 사항을 저장하고 즉시 확인할 수 있습니다.",
-    "deploy": "즉시 배포하기",
-    "docs": "문서 확인하기",
-    "learn": "배우기",
-    "examples": "더 많은 예제",
-    "go_to_nextjs": "nextjs.org로 이동하기 →"
+    "title": "OCC Funding에 오신 것을 환영합니다.",
+    "description": "혁신적인 프로젝트를 위한 투명하고 안전한 블록체인 기반 크라우드 펀딩 플랫폼입니다.",
+    "explorer_projects": "프로젝트 살펴보기",
+    "start_project": "프로젝트 시작하기",
+    "hot_projects": "인기 있는 프로젝트",
+    "nearing_end_projects": "펀딩 종료 직전 프로젝트",
+    "loading_project": "프로젝트 로딩 중...",
+    "join_funding": "미래의 펀딩에 참여하기",
+    "join_funding_sub": "획기적인 프로젝트를 발견하고, 혁신가를 지원하며, 차세대 혁신의 일원이 되어 보세요.",
+    "get_start": "시작하기"
   }
 }
