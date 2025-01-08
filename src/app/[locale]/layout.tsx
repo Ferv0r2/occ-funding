@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { ReactNode } from 'react';
+import { Footer } from '@/components/footers/Footer';
 import { MainHeader } from '@/components/headers/MainHeader';
 import { routing } from '@/i18n/routing';
 
@@ -29,6 +30,7 @@ export default async function LocaleLayout({
         <body>
           <MainHeader />
           <main className="flex-1">{children}</main>
+          <Footer />
         </body>
       </NextIntlClientProvider>
     </html>
