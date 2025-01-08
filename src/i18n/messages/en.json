@@ -1,4 +1,7 @@
 {
+  "Header": {
+    "project": "Projects"
+  },
   "Home": {
     "get_start": "Get started by editing <link></link>.",
     "hot_reload": "Save and see your changes instantly.",
