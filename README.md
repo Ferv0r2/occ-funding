@@ -1,8 +1,8 @@
-# OCC Funding
+# ​🚀 OCC Funding
 
 > Cloud funding + Block chain (DAO, SBT)
 
-## Overview
+## ​📌​​Overview
 
 This project combines **crowd-funding** with blockchain technology to create a transparent and secure investment platform for both project operators and contributors.
 
@@ -17,7 +17,7 @@ Contributors (backers) can vote on whether to continue the project at each miles
 | <img src="https://cdn.brandfetch.io/idKX_Hb7va/w/256/h/256/theme/dark/icon.png?c=1bx1739242486645id64Mup7aciCtoe-D4&t=1732638879396" width="100" height="100" /> | <img src="https://cdn.brandfetch.io/id2alue-rx/w/400/h/400/theme/dark/icon.jpeg?c=1bx1739201434260id64Mup7acmOr6Fn7v&t=1714556222178" width="100" height="100" /> <img src="https://cdn.brandfetch.io/id0AgeLF7b/w/400/h/400/theme/dark/icon.png?c=1bx1739242517994id64Mup7acSbShlH9y&t=1735475451887" width="100" height="100" /> | <img src="https://user-images.githubusercontent.com/958486/218346783-72be5ae3-b953-4dd7-b239-788a882fdad6.svg" width="100" height="100" /> <img src="https://tanstack.com/_build/assets/logo-color-600w-Er4SOkq1.png" width="100" height="100" /> | <img src="https://tailwindcss.com/_next/static/media/tailwindcss-mark.3c5441fc7a190fb1800d4a5c7f07ba4b1345a9c8.svg" width="100" height="100" /> <img src="https://ui.shadcn.com/apple-touch-icon.png" width="100" height="100" /> |
 | TypeScript                                                                                                                                                       | Next.js v15 & React v19                                                                                                                                                                                                                                                                                                            | Zustand & React-query                                                                                                                                                                                                                             | Tailwind CSS & Shadcn-ui                                                                                                                                                                                                          |
 
-## Key Features
+## 🔑 Key Features
 
 ### SBT Issuance
 
