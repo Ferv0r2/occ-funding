@@ -1,6 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import dayjs from 'dayjs';
 import { ArrowRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { ProjectCard } from '@/components/cards/ProjectCard';
@@ -19,10 +20,18 @@ const fetchProjects = async (): Promise<IProject[]> => {
 export default function Home() {
   const t = useTranslations('Home');
 
-  const { isLoading: isProjectsLoading, data: projects } = useQuery({
+  const { isLoading: isProjectsLoading, data: projects = [] } = useQuery({
     queryKey: ['projects'],
     queryFn: fetchProjects,
   });
+
+  const hotProjects = projects
+    .sort((a, b) => b.currentFunding - a.currentFunding)
+    .slice(0, 3);
+
+  const nearingEndProjects = projects
+    .sort((a, b) => dayjs(a.expiredAt).unix() - dayjs(b.expiredAt).unix())
+    .slice(0, 3);
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -59,7 +68,7 @@ export default function Home() {
           <div>{t('loading_project')}</div>
         ) : (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {projects?.map((project) => (
+            {hotProjects.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
           </div>
@@ -73,7 +82,7 @@ export default function Home() {
           <div>{t('loading_project')}</div>
         ) : (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {projects?.map((project) => (
+            {nearingEndProjects.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
           </div>
