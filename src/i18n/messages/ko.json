@@ -13,5 +13,21 @@
     "join_funding": "미래의 펀딩에 참여하기",
     "join_funding_sub": "획기적인 프로젝트를 발견하고, 혁신가를 지원하며, 차세대 혁신의 일원이 되어 보세요.",
     "get_start": "시작하기"
+  },
+  "Project": {
+    "loading_project": "프로젝트 로딩 중...",
+    "explore_projects": "프로젝트 둘러보기",
+    "all_statuses": "모든 상태",
+    "not_started": "시작 전",
+    "in_progress": "진행 중",
+    "completed": "완료",
+    "default_sort": "기본 정렬",
+    "funding_percentage": "펀딩 달성율",
+    "most_funded": "최다 펀딩",
+    "newest": "최신순",
+    "ending_soonest": "마감 임박",
+    "search_projects": "프로젝트 검색",
+    "filter_by_status": "상태별 필터",
+    "sort_by": "정렬 기준"
   }
 }

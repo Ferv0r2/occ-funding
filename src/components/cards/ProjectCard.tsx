@@ -7,15 +7,10 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import type { IProject } from '@/types/project/IProject';
 
 interface ProjectCardProps {
-  project: {
-    id: string;
-    title: string;
-    description: string;
-    fundingGoal: number;
-    currentFunding: number;
-  };
+  project: IProject;
 }
 
 export const ProjectCard = ({ project }: ProjectCardProps) => {
