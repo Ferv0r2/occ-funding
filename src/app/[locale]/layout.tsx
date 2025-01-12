@@ -27,7 +27,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <NextIntlClientProvider messages={messages}>
-        <body>
+        <body className="grid min-h-screen grid-rows-[auto,1fr,auto]">
           <MainHeader />
           <main className="flex-1">{children}</main>
           <Footer />

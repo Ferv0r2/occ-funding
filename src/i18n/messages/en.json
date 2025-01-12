@@ -13,5 +13,21 @@
     "join_funding": "Join the Future of Funding",
     "join_funding_sub": "Discover groundbreaking projects, support innovators, and be part of the next big thing.",
     "get_start": "Get Started Now"
+  },
+  "Project": {
+    "loading_project": "Loading Projects...",
+    "explore_projects": "Explore Projects",
+    "all_statuses": "All Statuses",
+    "not_started": "Not Started",
+    "in_progress": "In Progress",
+    "completed": "Completed",
+    "default_sort": "Default Sort",
+    "funding_percentage": "Funding Percentage",
+    "most_funded": "Most Funded",
+    "newest": "Newest",
+    "ending_soonest": "Ending Soonest",
+    "search_projects": "Search Projects",
+    "filter_by_status": "Filter by Status",
+    "sort_by": "Sort by"
   }
 }
