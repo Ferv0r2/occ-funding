@@ -1,6 +1,11 @@
 {
   "Header": {
-    "project": "프로젝트"
+    "project": "프로젝트",
+    "create_project": "프로젝트 생성",
+    "wallet_info": "지갑: {address}",
+    "profile": "프로필",
+    "settings": "설정",
+    "logout": "로그아웃"
   },
   "Home": {
     "title": "OCC Funding에 오신 것을 환영합니다.",

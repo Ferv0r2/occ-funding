@@ -1,6 +1,11 @@
 {
   "Header": {
-    "project": "Projects"
+    "project": "Projects",
+    "create_project": "Create Project",
+    "wallet_info": "Wallet: {address}",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout"
   },
   "Home": {
     "title": "Welcome to OCC Funding",
