@@ -17,7 +17,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 // TODO: get projects and add shortcuts
-export const fetchUser = async () => {
+const fetchUser = async () => {
   const res = await fetch('/api/user');
   if (!res.ok) {
     throw new Error('Network response was not ok');

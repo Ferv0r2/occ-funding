@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
 import { UserProfile } from '../items/UserProfile';
 
-export const fetchUser = async () => {
+const fetchUser = async () => {
   const res = await fetch('/api/user');
   if (!res.ok) {
     throw new Error('Network response was not ok');
