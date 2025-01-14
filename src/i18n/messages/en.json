@@ -34,5 +34,14 @@
     "search_projects": "Search Projects",
     "filter_by_status": "Filter by Status",
     "sort_by": "Sort by"
+  },
+  "Profile": {
+    "loading": "Loading...",
+    "email": "Email",
+    "wallet_address": "Wallet Address",
+    "projects_created": "Projects Created",
+    "projects_backed": "Projects Backed",
+    "total_backed": "Total Backed",
+    "edit_profile": "Edit Profile"
   }
 }

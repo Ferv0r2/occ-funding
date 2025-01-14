@@ -10,6 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Link } from '@/i18n/routing';
 import { replaceAddress } from '@/lib/utils/replace-data';
 
 interface UserProfileProps {
@@ -59,7 +60,9 @@ export const UserProfile = ({
           </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />
-        <DropdownMenuItem>{t('profile')}</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href="/profile">{t('profile')}</Link>
+        </DropdownMenuItem>
         <DropdownMenuItem>{t('settings')}</DropdownMenuItem>
         <DropdownMenuItem>{t('logout')}</DropdownMenuItem>
       </DropdownMenuContent>

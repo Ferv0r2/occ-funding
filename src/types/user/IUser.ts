@@ -4,4 +4,8 @@ export type IUser = {
   email: string;
   walletAddress: string;
   profileImage?: string;
+  message?: string;
+  projectsCreated: number;
+  projectsBackedCount: number;
+  totalAmountBacked: number;
 };

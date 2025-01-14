@@ -10,6 +10,10 @@ export const handlers = [
       email: 'msw@example.com',
       walletAddress: '0x1234567890123456789012345678901234567890',
       profileImage: 'https://avatars.githubusercontent.com/u/78407912?v=4',
+      message: 'Hello, I am a developer',
+      projectsCreated: 3,
+      projectsBackedCount: 7,
+      totalAmountBacked: 150000,
     });
   }),
 ];
