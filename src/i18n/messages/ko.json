@@ -1,6 +1,11 @@
 {
   "Header": {
-    "project": "프로젝트"
+    "project": "프로젝트",
+    "create_project": "프로젝트 생성",
+    "wallet_info": "지갑: {address}",
+    "profile": "프로필",
+    "settings": "설정",
+    "logout": "로그아웃"
   },
   "Home": {
     "title": "OCC Funding에 오신 것을 환영합니다.",
@@ -29,5 +34,14 @@
     "search_projects": "프로젝트 검색",
     "filter_by_status": "상태별 필터",
     "sort_by": "정렬 기준"
+  },
+  "Profile": {
+    "loading": "로딩 중...",
+    "email": "이메일",
+    "wallet_address": "지갑 주소",
+    "projects_created": "생성한 프로젝트",
+    "projects_backed": "펀딩한 프로젝트",
+    "total_backed": "총 펀딩 금액",
+    "edit_profile": "프로필 수정"
   }
 }
