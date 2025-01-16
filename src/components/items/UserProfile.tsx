@@ -60,7 +60,7 @@ export const UserProfile = ({
           </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem asChild>
           <Link href="/profile">{t('profile')}</Link>
         </DropdownMenuItem>
         <DropdownMenuItem>{t('settings')}</DropdownMenuItem>
