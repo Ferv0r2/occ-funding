@@ -33,7 +33,19 @@
     "ending_soonest": "Ending Soonest",
     "search_projects": "Search Projects",
     "filter_by_status": "Filter by Status",
-    "sort_by": "Sort by"
+    "sort_by": "Sort by",
+    "view_project": "View Project",
+    "raised_of": "{current} raised of {goal}",
+    "story": "Story",
+    "updates": "Updates",
+    "risks": "Risks",
+    "backers_count": "{count} backers",
+    "project_milestones": "Project Milestones",
+    "days_left": "{days} days left",
+    "back_project": "Back This Project",
+    "project_creator": "Project Creator",
+    "created_count": "Created {count}",
+    "successful_count": "Successful {count}"
   },
   "Profile": {
     "loading": "Loading...",
