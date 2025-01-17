@@ -49,18 +49,16 @@ const projectDetails: IProjectDetail = {
 
 export async function GET(
   request: Request,
-  context: { params: { id: string } },
+  context: { params: Promise<{ id: string }> },
 ) {
-  console.log('Request url', request.url);
-  const params = await context.params;
+  const { id } = await context.params;
 
-  if (!params.id) {
+  if (!id) {
     return NextResponse.json(
       { error: 'Project ID is required' },
       { status: 400 },
     );
   }
 
-  console.log('Project found:', projectDetails);
   return NextResponse.json(projectDetails);
 }
