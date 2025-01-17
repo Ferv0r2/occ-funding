@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -7,6 +8,8 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import { Link } from '@/i18n/routing';
+import { formatCurrency } from '@/lib/utils/format-data';
 import type { IProject } from '@/types/project/IProject';
 
 interface ProjectCardProps {
@@ -14,6 +17,7 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard = ({ project }: ProjectCardProps) => {
+  const t = useTranslations('Project');
   const progress = (project.currentFunding / project.fundingGoal) * 100;
 
   return (
@@ -27,12 +31,16 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
         </p>
         <Progress value={progress} className="mb-2" />
         <p className="text-sm font-medium">
-          ${project.currentFunding.toLocaleString()} raised of $
-          {project.fundingGoal.toLocaleString()}
+          {t('raised_of', {
+            current: formatCurrency(project.currentFunding),
+            goal: formatCurrency(project.fundingGoal),
+          })}
         </p>
       </CardContent>
       <CardFooter>
-        <Button className="w-full">View Project</Button>
+        <Link href={`/projects/${project.id}`} className="w-full">
+          <Button className="w-full">{t('view_project')}</Button>
+        </Link>
       </CardFooter>
     </Card>
   );

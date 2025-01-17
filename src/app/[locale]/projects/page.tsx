@@ -22,6 +22,9 @@ import {
 } from '@/constants/project-config';
 import { IProject } from '@/types/project/IProject';
 
+type StatusFilter = ProjectStatus | 'all';
+type SortBy = ProjectSortBy | 'default';
+
 const fetchProjects = async (): Promise<IProject[]> => {
   const res = await fetch('/api/projects');
   if (!res.ok) {
@@ -33,10 +36,10 @@ const fetchProjects = async (): Promise<IProject[]> => {
 const Filters: FC<{
   searchTerm: string;
   onSearchChange: (value: string) => void;
-  statusFilter: ProjectStatus;
-  onStatusChange: (value: ProjectStatus) => void;
-  sortBy: ProjectSortBy;
-  onSortChange: (value: ProjectSortBy) => void;
+  statusFilter: StatusFilter;
+  onStatusChange: (value: StatusFilter) => void;
+  sortBy: SortBy;
+  onSortChange: (value: SortBy) => void;
 }> = ({
   searchTerm,
   onSearchChange,
@@ -68,9 +71,7 @@ const Filters: FC<{
             <SelectValue placeholder={t('filter_by_status')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value={ProjectStatus.ALL}>
-              {t('all_statuses')}
-            </SelectItem>
+            <SelectItem value="all">{t('all_statuses')}</SelectItem>
             <SelectItem value={ProjectStatus.NotStarted}>
               {t('not_started')}
             </SelectItem>
@@ -87,9 +88,7 @@ const Filters: FC<{
             <SelectValue placeholder={t('sort_by')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value={ProjectSortBy.Default}>
-              {t('default_sort')}
-            </SelectItem>
+            <SelectItem value={'default'}>{t('default_sort')}</SelectItem>
             <SelectItem value={ProjectSortBy.FundingPercentage}>
               {t('funding_percentage')}
             </SelectItem>
@@ -116,15 +115,13 @@ export default function ProjectsPage() {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState<ProjectStatus>(
-    ProjectStatus.ALL,
-  );
-  const [sortBy, setSortBy] = useState<ProjectSortBy>(ProjectSortBy.Default);
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
+  const [sortBy, setSortBy] = useState<SortBy>('default');
 
   const sortFunctions = useMemo(
     () =>
       ({
-        [ProjectSortBy.Default]: () => 0,
+        ['default']: () => 0,
         [ProjectSortBy.FundingPercentage]: (a, b) => {
           const percentageA = (a.currentFunding / a.fundingGoal) * 100;
           const percentageB = (b.currentFunding / b.fundingGoal) * 100;
@@ -136,7 +133,7 @@ export default function ProjectsPage() {
           dayjs(b.createdAt).unix() - dayjs(a.createdAt).unix(),
         [ProjectSortBy.EndingSoon]: (a, b) =>
           dayjs(a.expiredAt).unix() - dayjs(b.expiredAt).unix(),
-      }) as Record<ProjectSortBy, (a: IProject, b: IProject) => number>,
+      }) as Record<SortBy, (a: IProject, b: IProject) => number>,
     [],
   );
 
@@ -144,9 +141,7 @@ export default function ProjectsPage() {
     return projects
       .filter((project) => {
         const matchesStatus =
-          statusFilter === ProjectStatus.ALL
-            ? true
-            : project.status === statusFilter;
+          statusFilter === 'all' ? true : project.status === statusFilter;
         const matchesSearch = searchTerm
           ? project.title.toLowerCase().includes(searchTerm.toLowerCase())
           : true;

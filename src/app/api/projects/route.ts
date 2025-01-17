@@ -12,8 +12,8 @@ export async function GET() {
       fundingGoal: 500000,
       currentFunding: 350000,
       status: ProjectStatus.InProgress,
-      createdAt: new Date('2023-01-15').toISOString(),
-      expiredAt: new Date('2023-07-15').toISOString(),
+      createdAt: new Date('2025-01-15').toISOString(),
+      expiredAt: new Date('2025-07-15').toISOString(),
     },
     {
       id: '2',
@@ -22,8 +22,8 @@ export async function GET() {
       fundingGoal: 200000,
       currentFunding: 50000,
       status: ProjectStatus.NotStarted,
-      createdAt: new Date('2023-03-01').toISOString(),
-      expiredAt: new Date('2023-09-01').toISOString(),
+      createdAt: new Date('2025-03-01').toISOString(),
+      expiredAt: new Date('2025-09-01').toISOString(),
     },
     {
       id: '3',
@@ -32,8 +32,8 @@ export async function GET() {
       fundingGoal: 1000000,
       currentFunding: 750000,
       status: ProjectStatus.InProgress,
-      createdAt: new Date('2023-02-10').toISOString(),
-      expiredAt: new Date('2023-08-10').toISOString(),
+      createdAt: new Date('2025-02-10').toISOString(),
+      expiredAt: new Date('2025-08-10').toISOString(),
     },
     {
       id: '4',
@@ -42,8 +42,8 @@ export async function GET() {
       fundingGoal: 300000,
       currentFunding: 300000,
       status: ProjectStatus.Completed,
-      createdAt: new Date('2023-01-01').toISOString(),
-      expiredAt: new Date('2023-07-01').toISOString(),
+      createdAt: new Date('2025-01-01').toISOString(),
+      expiredAt: new Date('2025-07-01').toISOString(),
     },
     {
       id: '5',
@@ -52,8 +52,8 @@ export async function GET() {
       fundingGoal: 400000,
       currentFunding: 200000,
       status: ProjectStatus.InProgress,
-      createdAt: new Date('2023-04-05').toISOString(),
-      expiredAt: new Date('2023-10-05').toISOString(),
+      createdAt: new Date('2025-04-05').toISOString(),
+      expiredAt: new Date('2025-10-05').toISOString(),
     },
     {
       id: '6',
@@ -62,8 +62,8 @@ export async function GET() {
       fundingGoal: 750000,
       currentFunding: 500000,
       status: ProjectStatus.InProgress,
-      createdAt: new Date('2023-03-20').toISOString(),
-      expiredAt: new Date('2023-09-20').toISOString(),
+      createdAt: new Date('2025-03-20').toISOString(),
+      expiredAt: new Date('2025-09-20').toISOString(),
     },
     {
       id: '7',
@@ -72,8 +72,8 @@ export async function GET() {
       fundingGoal: 150000,
       currentFunding: 25000,
       status: ProjectStatus.NotStarted,
-      createdAt: new Date('2023-05-01').toISOString(),
-      expiredAt: new Date('2023-11-01').toISOString(),
+      createdAt: new Date('2025-05-01').toISOString(),
+      expiredAt: new Date('2025-11-01').toISOString(),
     },
   ];
 

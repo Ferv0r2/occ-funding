@@ -33,7 +33,19 @@
     "ending_soonest": "마감 임박",
     "search_projects": "프로젝트 검색",
     "filter_by_status": "상태별 필터",
-    "sort_by": "정렬 기준"
+    "sort_by": "정렬 기준",
+    "view_project": "프로젝트 보기",
+    "raised_of": "목표 {goal}까지 {current} 펀딩됨",
+    "story": "스토리",
+    "updates": "업데이트",
+    "risks": "위험성",
+    "backers_count": "{count}명의 후원자",
+    "project_milestones": "프로젝트 마일스톤",
+    "days_left": "{days}일 남음",
+    "back_project": "프로젝트 후원하기",
+    "project_creator": "프로젝트 생성자",
+    "created_count": "{count}개의 생성",
+    "successful_count": "{count}개의 성공"
   },
   "Profile": {
     "loading": "로딩 중...",

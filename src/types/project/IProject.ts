@@ -4,6 +4,7 @@ export type IProject = {
   id: string;
   title: string;
   description: string;
+  bannerImage?: string;
   fundingGoal: number;
   currentFunding: number;
   status: ProjectStatus;
