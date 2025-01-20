@@ -55,7 +55,7 @@ export const MainHeader = () => {
             </nav>
           </div>
           <div className="flex items-center gap-4">
-            <Link href="/create">
+            <Link href="/projects/create">
               <Button>{t('create_project')}</Button>
             </Link>
             <UserProfile loading={isLoading} {...user} />

@@ -165,7 +165,7 @@ export default function CreateProjectPage() {
                 <FormField
                   control={form.control}
                   name="bannerImage"
-                  render={({ field: { onChange, value, ...rest } }) => (
+                  render={({ field: { onChange, ...rest } }) => (
                     <FormItem>
                       <FormLabel>Banner Image</FormLabel>
                       <FormControl>
@@ -223,7 +223,7 @@ export default function CreateProjectPage() {
                         />
                       </FormControl>
                       <FormDescription>
-                        Set your project's funding goal in USD.
+                        Set your project{"'"}s funding goal in USD.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
