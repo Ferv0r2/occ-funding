@@ -4,6 +4,7 @@ import { getMessages } from 'next-intl/server';
 import { ReactNode } from 'react';
 import { Footer } from '@/components/footers/Footer';
 import { MainHeader } from '@/components/headers/MainHeader';
+import { Toaster } from '@/components/ui/toaster';
 import { routing } from '@/i18n/routing';
 
 type Params = Promise<{ locale: never }>;
@@ -31,6 +32,7 @@ export default async function LocaleLayout({
           <MainHeader />
           <main className="flex-1">{children}</main>
           <Footer />
+          <Toaster />
         </body>
       </NextIntlClientProvider>
     </html>
