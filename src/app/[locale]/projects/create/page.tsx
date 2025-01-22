@@ -9,6 +9,7 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
+import { ProjectPreview } from '@/components/cards/ProjectPreview';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import {
@@ -184,275 +185,285 @@ export default function CreateProjectPage() {
   const currentFields = steps[currentStep].fields;
 
   return (
-    <div className="container mx-auto py-10">
-      <Card className="mx-auto max-w-2xl">
-        <CardHeader>
-          <CardTitle>{t('title')}</CardTitle>
-          <CardDescription>
-            {t('step_by', {
-              current: currentStep + 1,
-              total: steps.length,
-              title: steps[currentStep].title,
-            })}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              {currentFields.includes('title') && (
-                <FormField
-                  control={form.control}
-                  name="title"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('project_title')}</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Enter project title" {...field} />
-                      </FormControl>
-                      <FormDescription>
-                        {t('title_description')}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
-              {currentFields.includes('description') && (
-                <FormField
-                  control={form.control}
-                  name="description"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('project_description')}</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Describe your project"
-                          className="resize-none"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormDescription>
-                        {t('description_description')}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
-              {currentFields.includes('bannerImage') && (
-                <FormField
-                  control={form.control}
-                  name="bannerImage"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('banner_image')}</FormLabel>
-                      <FormControl>
-                        <div className="flex w-full items-center justify-center">
-                          {previewImage ? (
-                            <div className="relative mb-4 h-80 w-full">
-                              <Image
-                                src={previewImage || ''}
-                                alt="Banner preview"
-                                fill
-                                objectFit="cover"
-                                className="rounded-lg"
-                              />
-                              <Button
-                                type="button"
-                                variant="destructive"
-                                size="icon"
-                                className="absolute right-2 top-2"
-                                onClick={removeImage}
-                              >
-                                <X className="h-4 w-4" />
-                              </Button>
-                            </div>
-                          ) : (
-                            <label
-                              htmlFor="dropzone-file"
-                              className="dark:hover:bg-bray-800 flex h-80 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                            >
-                              <div className="flex flex-col items-center justify-center pb-6 pt-5">
-                                <Upload className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400" />
-                                <p className="mb-2 whitespace-pre-wrap text-sm text-gray-500 dark:text-gray-400">
-                                  {t.rich('click_upload', {
-                                    strong: (children) => (
-                                      <span className="font-semibold">
-                                        {children}
-                                      </span>
-                                    ),
-                                  })}
-                                </p>
-                                <p className="text-xs text-gray-500 dark:text-gray-400">
-                                  {t('extension_condition')}
-                                </p>
+    <div className="container mx-auto flex max-w-screen-xl gap-8 py-10">
+      <div className="w-2/3">
+        <Card className="mx-auto max-w-2xl">
+          <CardHeader>
+            <CardTitle>{t('title')}</CardTitle>
+            <CardDescription>
+              {t('step_by', {
+                current: currentStep + 1,
+                total: steps.length,
+                title: steps[currentStep].title,
+              })}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-8"
+              >
+                {currentFields.includes('title') && (
+                  <FormField
+                    control={form.control}
+                    name="title"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t('project_title')}</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Enter project title" {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          {t('title_description')}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
+                {currentFields.includes('description') && (
+                  <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t('project_description')}</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            placeholder="Describe your project"
+                            className="resize-none"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          {t('description_description')}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
+                {currentFields.includes('bannerImage') && (
+                  <FormField
+                    control={form.control}
+                    name="bannerImage"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t('banner_image')}</FormLabel>
+                        <FormControl>
+                          <div className="flex w-full items-center justify-center">
+                            {previewImage ? (
+                              <div className="relative mb-4 h-80 w-full">
+                                <Image
+                                  src={previewImage || ''}
+                                  alt="Banner preview"
+                                  fill
+                                  objectFit="cover"
+                                  className="rounded-lg"
+                                />
+                                <Button
+                                  type="button"
+                                  variant="destructive"
+                                  size="icon"
+                                  className="absolute right-2 top-2"
+                                  onClick={removeImage}
+                                >
+                                  <X className="h-4 w-4" />
+                                </Button>
                               </div>
-                              <input
-                                id="dropzone-file"
-                                type="file"
-                                className="hidden"
-                                onChange={handleImageChange}
-                                accept="image/png, image/jpeg, image/jpg, image/webp"
-                                ref={field.ref}
-                                name={field.name}
-                              />
-                            </label>
-                          )}
-                        </div>
-                      </FormControl>
-                      <FormDescription>
-                        {t('banner_image_description')}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
-              {currentFields.includes('fundingGoal') && (
-                <FormField
-                  control={form.control}
-                  name="fundingGoal"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('funding_goal')}</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="number"
-                          placeholder="Enter funding goal"
-                          {...field}
-                          onChange={(e) =>
-                            field.onChange(Number(e.target.value))
-                          }
-                        />
-                      </FormControl>
-                      <FormDescription>{t('goal_description')}</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
-              {currentFields.includes('startDate') && (
-                <FormField
-                  control={form.control}
-                  name="startDate"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>{t('start_date')}</FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant={'outline'}
-                              className={cn(
-                                'w-[240px] pl-3 text-left font-normal',
-                                !field.value && 'text-muted-foreground',
-                              )}
-                            >
-                              {field.value ? (
-                                dayjs(field.value).format('MMMM D, YYYY')
-                              ) : (
-                                <span>{t('pick_date')}</span>
-                              )}
-                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={field.value}
-                            onSelect={field.onChange}
-                            disabled={(date) =>
-                              date <
-                              dayjs()
-                                .utc()
-                                .add(1, 'day')
-                                .startOf('day')
-                                .toDate()
+                            ) : (
+                              <label
+                                htmlFor="dropzone-file"
+                                className="dark:hover:bg-bray-800 flex h-80 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                              >
+                                <div className="flex flex-col items-center justify-center pb-6 pt-5">
+                                  <Upload className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400" />
+                                  <p className="mb-2 whitespace-pre-wrap text-sm text-gray-500 dark:text-gray-400">
+                                    {t.rich('click_upload', {
+                                      strong: (children) => (
+                                        <span className="font-semibold">
+                                          {children}
+                                        </span>
+                                      ),
+                                    })}
+                                  </p>
+                                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                                    {t('extension_condition')}
+                                  </p>
+                                </div>
+                                <input
+                                  id="dropzone-file"
+                                  type="file"
+                                  className="hidden"
+                                  onChange={handleImageChange}
+                                  accept="image/png, image/jpeg, image/jpg, image/webp"
+                                  ref={field.ref}
+                                  name={field.name}
+                                />
+                              </label>
+                            )}
+                          </div>
+                        </FormControl>
+                        <FormDescription>
+                          {t('banner_image_description')}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
+                {currentFields.includes('fundingGoal') && (
+                  <FormField
+                    control={form.control}
+                    name="fundingGoal"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t('funding_goal')}</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            placeholder="Enter funding goal"
+                            {...field}
+                            onChange={(e) =>
+                              field.onChange(Number(e.target.value))
                             }
-                            initialFocus
                           />
-                        </PopoverContent>
-                      </Popover>
-                      <FormDescription>
-                        {t('start_date_description')}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
-              {currentFields.includes('endDate') && (
-                <FormField
-                  control={form.control}
-                  name="endDate"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>{t('end_date')}</FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant={'outline'}
-                              className={cn(
-                                'w-[240px] pl-3 text-left font-normal',
-                                !field.value && 'text-muted-foreground',
-                              )}
-                            >
-                              {field.value ? (
-                                dayjs(field.value).format('MMMM D, YYYY')
-                              ) : (
-                                <span>{t('pick_date')}</span>
-                              )}
-                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={field.value}
-                            onSelect={field.onChange}
-                            disabled={(date) =>
-                              date <=
-                              (form.getValues('startDate') || new Date())
-                            }
-                            initialFocus
-                          />
-                        </PopoverContent>
-                      </Popover>
-                      <FormDescription>
-                        {t('start_date_description')}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
-            </form>
-          </Form>
-        </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button
-            variant="outline"
-            onClick={goToPreviousStep}
-            disabled={currentStep === 0}
-          >
-            {t('previous')}
-          </Button>
-          <Button
-            onClick={() => {
-              if (currentStep < steps.length - 1) {
-                goToNextStep();
-              } else {
-                form.handleSubmit(onSubmit)();
-              }
-            }}
-          >
-            {currentStep < steps.length - 1 ? t('next') : t('create_project')}
-          </Button>
-        </CardFooter>
-      </Card>
+                        </FormControl>
+                        <FormDescription>
+                          {t('goal_description')}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
+                {currentFields.includes('startDate') && (
+                  <FormField
+                    control={form.control}
+                    name="startDate"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>{t('start_date')}</FormLabel>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                variant={'outline'}
+                                className={cn(
+                                  'w-[240px] pl-3 text-left font-normal',
+                                  !field.value && 'text-muted-foreground',
+                                )}
+                              >
+                                {field.value ? (
+                                  dayjs(field.value).format('MMMM D, YYYY')
+                                ) : (
+                                  <span>{t('pick_date')}</span>
+                                )}
+                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              selected={field.value}
+                              onSelect={field.onChange}
+                              disabled={(date) =>
+                                date <
+                                dayjs()
+                                  .utc()
+                                  .add(1, 'day')
+                                  .startOf('day')
+                                  .toDate()
+                              }
+                              initialFocus
+                            />
+                          </PopoverContent>
+                        </Popover>
+                        <FormDescription>
+                          {t('start_date_description')}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
+                {currentFields.includes('endDate') && (
+                  <FormField
+                    control={form.control}
+                    name="endDate"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>{t('end_date')}</FormLabel>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                variant={'outline'}
+                                className={cn(
+                                  'w-[240px] pl-3 text-left font-normal',
+                                  !field.value && 'text-muted-foreground',
+                                )}
+                              >
+                                {field.value ? (
+                                  dayjs(field.value).format('MMMM D, YYYY')
+                                ) : (
+                                  <span>{t('pick_date')}</span>
+                                )}
+                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              selected={field.value}
+                              onSelect={field.onChange}
+                              disabled={(date) =>
+                                date <=
+                                (form.getValues('startDate') || new Date())
+                              }
+                              initialFocus
+                            />
+                          </PopoverContent>
+                        </Popover>
+                        <FormDescription>
+                          {t('start_date_description')}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
+              </form>
+            </Form>
+          </CardContent>
+          <CardFooter className="flex justify-between">
+            <Button
+              variant="outline"
+              onClick={goToPreviousStep}
+              disabled={currentStep === 0}
+            >
+              {t('previous')}
+            </Button>
+            <Button
+              onClick={() => {
+                if (currentStep < steps.length - 1) {
+                  goToNextStep();
+                } else {
+                  form.handleSubmit(onSubmit)();
+                }
+              }}
+            >
+              {currentStep < steps.length - 1 ? t('next') : t('create_project')}
+            </Button>
+          </CardFooter>
+        </Card>
+      </div>
+      <div className="sticky top-4 w-1/3 self-start">
+        <ProjectPreview project={form.getValues()} />
+      </div>
     </div>
   );
 }
