@@ -45,7 +45,13 @@
     "back_project": "프로젝트 후원하기",
     "project_creator": "프로젝트 생성자",
     "created_count": "{count}개의 생성",
-    "successful_count": "{count}개의 성공"
+    "successful_count": "{count}개의 성공",
+    "list_view": "목록 보기",
+    "detail_view": "상세 보기",
+    "preview": "Preview",
+    "about_project": "프로젝트 정보",
+    "description_info_message": "자세한 프로젝트 설명이 여기에 표시됩니다.",
+    "funding_goal": "목표 {goal}"
   },
   "Profile": {
     "loading": "로딩 중...",

@@ -45,7 +45,13 @@
     "back_project": "Back This Project",
     "project_creator": "Project Creator",
     "created_count": "Created {count}",
-    "successful_count": "Successful {count}"
+    "successful_count": "Successful {count}",
+    "list_view": "List View",
+    "detail_view": "Detail View",
+    "preview": "Preview",
+    "about_project": "About this Project",
+    "description_info_message": "Detailed project description will appear here.",
+    "funding_goal": "{goal} goal"
   },
   "Profile": {
     "loading": "Loading...",

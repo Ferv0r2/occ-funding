@@ -44,8 +44,8 @@ export function ProjectPreview({ project }: ProjectPreviewProps) {
   return (
     <Tabs defaultValue="list" className="w-full">
       <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="list">List View</TabsTrigger>
-        <TabsTrigger value="detail">Detail View</TabsTrigger>
+        <TabsTrigger value="list">{t('list_view')}</TabsTrigger>
+        <TabsTrigger value="detail">{t('detail_view')}</TabsTrigger>
       </TabsList>
       <TabsContent value="list">
         <Card>
@@ -57,7 +57,7 @@ export function ProjectPreview({ project }: ProjectPreviewProps) {
                   {description || 'Project description will appear here.'}
                 </CardDescription>
               </div>
-              <Badge>Preview</Badge>
+              <Badge>{t('preview')}</Badge>
             </div>
           </CardHeader>
           <CardContent>
@@ -69,7 +69,11 @@ export function ProjectPreview({ project }: ProjectPreviewProps) {
               })}
             </p>
             <div className="flex justify-between text-sm text-muted-foreground">
-              <span>{daysLeft} days left</span>
+              <span>
+                {t('days_left', {
+                  days: daysLeft,
+                })}
+              </span>
             </div>
           </CardContent>
           <CardFooter>
@@ -91,36 +95,50 @@ export function ProjectPreview({ project }: ProjectPreviewProps) {
                   {description || 'Project description will appear here.'}
                 </CardDescription>
               </div>
-              <Badge>Preview</Badge>
+              <Badge>{t('preview')}</Badge>
             </div>
           </CardHeader>
           <CardContent>
-            <Image
-              src={previewImage || '/placeholder.svg'}
-              height={400}
-              width={600}
-              alt={title || 'Project banner'}
-              className="mb-6 w-full rounded-lg"
-            />
-            <Progress value={0} className="mb-2" />
+            {previewImage ? (
+              <Image
+                src={previewImage || ''}
+                height={400}
+                width={600}
+                alt={title || 'Project banner'}
+                className="w-full rounded-lg"
+              />
+            ) : (
+              <div className="h-64 w-full rounded-lg bg-gray-300" />
+            )}
+            <Progress value={0} className="mb-2 mt-6" />
             <p className="mb-2 text-lg font-medium">
-              {formatCurrency(0)} raised of{' '}
-              {fundingGoal ? formatCurrency(fundingGoal) : 'N/A'}
+              {t('raised_of', {
+                current: formatCurrency(0),
+                goal: fundingGoal ? formatCurrency(fundingGoal) : 'N/A',
+              })}
             </p>
             <div className="mb-4 flex justify-between text-sm text-muted-foreground">
               <div className="flex items-center space-x-2">
                 <Users className="h-4 w-4" />
-                <span>0 backers</span>
+                <span>
+                  {t('backers_count', {
+                    count: 0,
+                  })}
+                </span>
               </div>
               <div className="flex items-center space-x-2">
                 <Target className="h-4 w-4" />
                 <span>
-                  {fundingGoal ? formatCurrency(fundingGoal) : 'N/A'} goal
+                  {t('funding_goal', {
+                    goal: fundingGoal ? formatCurrency(fundingGoal) : 'N/A',
+                  })}
                 </span>
               </div>
               <div className="flex items-center space-x-2">
                 <CalendarDays className="h-4 w-4" />
-                <span>{daysLeft} days left</span>
+                <span>
+                  {daysLeft ? t('days_left', { days: daysLeft }) : 'N/A'}
+                </span>
               </div>
               <div className="flex items-center space-x-2">
                 <Clock className="h-4 w-4" />
@@ -130,16 +148,15 @@ export function ProjectPreview({ project }: ProjectPreviewProps) {
               </div>
             </div>
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold">About this project</h3>
+              <h3 className="text-xl font-semibold">{t('about_project')}</h3>
               <p className="text-muted-foreground">
-                {description ||
-                  'Detailed project description will appear here.'}
+                {description || t('description_info_message')}
               </p>
             </div>
           </CardContent>
           <CardFooter>
             <Button className="w-full" disabled>
-              Back This Project
+              {t('back_project')}
             </Button>
           </CardFooter>
         </Card>
