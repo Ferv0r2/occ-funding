@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import {
@@ -26,6 +27,17 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
         <CardTitle>{project.title}</CardTitle>
       </CardHeader>
       <CardContent>
+        {project.bannerImage ? (
+          <Image
+            src={project.bannerImage || ''}
+            height={400}
+            width={600}
+            alt={project.title || 'Project banner'}
+            className="w-full rounded-lg"
+          />
+        ) : (
+          <div className="mb-2 h-64 w-full rounded-lg bg-gray-300" />
+        )}
         <p className="mb-4 text-sm text-muted-foreground">
           {project.description}
         </p>
