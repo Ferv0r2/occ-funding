@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { ReactNode } from 'react';
 import { MSWInitializer } from '@/components/logic/providers/MSWInitializer';
 import { ReactQueryProvider } from '@/components/logic/providers/ReactQueryProvider';
+import { SolanaWalletProvider } from '@/components/logic/providers/SolanaWalletProvider';
+
 import '@/styles/globals.css';
 
 export const metadata: Metadata = {
@@ -64,7 +66,7 @@ export default function RootLayout({
   return (
     <ReactQueryProvider>
       <MSWInitializer />
-      {children}
+      <SolanaWalletProvider>{children}</SolanaWalletProvider>
     </ReactQueryProvider>
   );
 }

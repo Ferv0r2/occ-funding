@@ -1,13 +1,10 @@
 /**
- * Shrinks the address to 0x...0000 format
+ * Shrinks the Solana wallet address to format like 'abc1...xyz9'
  *
- * @param str wallet address
- * @param prefix prefix of the address default is '0x'
- * @returns {string} replaced address
+ * @param address Solana wallet address
+ * @returns {string} shortened address
  */
-export const replaceAddress = (str: string, prefix: string = '0x'): string => {
-  if (!str || str?.length < 10) return str;
-  return str.replace(/0x[a-fA-F0-9]{6,}/g, (address) => {
-    return `${prefix}${address.slice(2, 6)}...${address.slice(-4)}`;
-  });
+export const replaceAddress = (address?: string): string => {
+  if (!address || address.length < 10) return address || '';
+  return `${address.slice(0, 4)}...${address.slice(-4)}`;
 };
