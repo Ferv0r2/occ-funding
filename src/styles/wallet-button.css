@@ -1,0 +1,15 @@
+.wallet-adapter-modal-wrapper {
+  @apply bg-black;
+}
+
+.wallet-adapter-modal-button-close {
+  @apply bg-primary;
+}
+
+.wallet-adapter-dropdown {
+  @apply w-full rounded-md bg-primary text-sm font-medium transition-colors hover:bg-primary/90 !important;
+}
+
+.wallet-adapter-button {
+  @apply h-auto w-full rounded-md bg-primary px-4 py-2 text-sm font-medium transition-colors hover:bg-primary/90 !important;
+}

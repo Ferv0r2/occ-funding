@@ -1,4 +1,6 @@
-import { User } from 'lucide-react';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { Unplug, User } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -17,7 +19,6 @@ interface UserProfileProps {
   isLoading: boolean;
   name: string;
   email: string;
-  walletAddress: string;
   profileImage?: string;
 }
 
@@ -25,10 +26,13 @@ export const UserProfile = ({
   isLoading,
   name,
   email,
-  walletAddress,
   profileImage,
 }: UserProfileProps) => {
   const t = useTranslations('Header');
+  const { connected, publicKey, disconnect } = useWallet();
+
+  // 지갑 주소를 짧게 표시 (예: Sxyz...abc)
+  const walletAddress = publicKey?.toBase58() ?? '';
 
   return (
     <DropdownMenu>
@@ -52,11 +56,25 @@ export const UserProfile = ({
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {!isLoading && (
+        {!isLoading && connected ? (
           <DropdownMenuItem>
-            {t('wallet_info', {
-              address: replaceAddress(walletAddress),
-            })}
+            <span>
+              {t('wallet_info', {
+                address: replaceAddress(walletAddress),
+              })}
+            </span>
+
+            <Unplug
+              className="h-4 w-4 cursor-pointer text-muted-foreground hover:text-destructive"
+              onClick={(e) => {
+                e.preventDefault();
+                disconnect();
+              }}
+            />
+          </DropdownMenuItem>
+        ) : (
+          <DropdownMenuItem>
+            <WalletMultiButton />
           </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />
