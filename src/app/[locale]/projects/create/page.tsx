@@ -65,7 +65,7 @@ const getFormSchema = (t: (id: string, options?: any) => string) =>
     }),
     bannerImage: z
       .any()
-      .refine((files) => files?.length == 1, t('input_banner_required'))
+      .refine((files) => files?.length === 1, t('input_banner_required'))
       .refine(
         (files) => files?.[0]?.size <= MAX_FILE_SIZE,
         t('input_banner_size_error'),
@@ -94,11 +94,10 @@ type FormData = z.infer<ReturnType<typeof getFormSchema>>;
 export default function CreateProjectPage() {
   const t = useTranslations('Create');
   const router = useRouter();
-
   const steps = getSteps(t);
   const formSchema = getFormSchema(t);
-
   const { toast } = useToast();
+
   const [currentStep, setCurrentStep] = useState(0);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
@@ -115,7 +114,8 @@ export default function CreateProjectPage() {
   });
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+    const { files } = e.target;
+    const file = files?.[0];
     if (file) {
       form.setValue('bannerImage', [file]);
       const reader = new FileReader();
@@ -132,21 +132,22 @@ export default function CreateProjectPage() {
   };
 
   const goToNextStep = () => {
+    const { fields } = steps[currentStep];
     if (validateStep(currentStep)) {
       setCurrentStep((prev) => Math.min(steps.length - 1, prev + 1));
       return;
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    form.trigger(steps[currentStep].fields as any);
+    form.trigger(fields as any);
   };
 
   const validateStep = (step: number) => {
-    const fieldsToValidate = steps[step].fields;
+    const { fields } = steps[step];
     const stepData = form.getValues();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const stepErrors: Record<string, any> = {};
 
-    fieldsToValidate.forEach((field) => {
+    fields.forEach((field) => {
       try {
         formSchema
           .pick({ [field]: true } as { [K in keyof FormData]?: true })
@@ -256,7 +257,7 @@ export default function CreateProjectPage() {
                             {previewImage ? (
                               <div className="relative mb-4 h-80 w-full">
                                 <Image
-                                  src={previewImage || ''}
+                                  src={previewImage}
                                   alt="Banner preview"
                                   fill
                                   objectFit="cover"
@@ -349,7 +350,7 @@ export default function CreateProjectPage() {
                           <PopoverTrigger asChild>
                             <FormControl>
                               <Button
-                                variant={'outline'}
+                                variant="outline"
                                 className={cn(
                                   'w-[240px] pl-3 text-left font-normal',
                                   !field.value && 'text-muted-foreground',
@@ -400,7 +401,7 @@ export default function CreateProjectPage() {
                           <PopoverTrigger asChild>
                             <FormControl>
                               <Button
-                                variant={'outline'}
+                                variant="outline"
                                 className={cn(
                                   'w-[240px] pl-3 text-left font-normal',
                                   !field.value && 'text-muted-foreground',

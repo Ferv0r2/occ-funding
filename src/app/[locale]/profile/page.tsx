@@ -31,18 +31,29 @@ export default function ProfilePage() {
     queryKey: ['user'],
     queryFn: fetchUser,
   });
-  const params = useParams();
+  const { locale } = useParams();
 
-  const totalBacked = new Intl.NumberFormat(params.locale, {
+  if (isLoading || !user) {
+    return <div className="mx-auto max-w-2xl py-8">{t('loading')}</div>;
+  }
+
+  const {
+    name,
+    message,
+    email,
+    walletAddress,
+    profileImage,
+    projectsCreated,
+    projectsBackedCount,
+    totalAmountBacked,
+  } = user;
+
+  const totalBacked = new Intl.NumberFormat(locale, {
     style: 'currency',
     currency: 'USD',
     maximumFractionDigits: 2,
     minimumFractionDigits: 0,
-  }).format(user?.totalAmountBacked);
-
-  if (isLoading) {
-    return <div className="mx-auto max-w-2xl py-8">{t('loading')}</div>;
-  }
+  }).format(totalAmountBacked);
 
   return (
     <div className="container mx-auto py-8">
@@ -50,14 +61,14 @@ export default function ProfilePage() {
         <CardHeader>
           <div className="flex items-center space-x-4">
             <Avatar className="h-20 w-20">
-              <AvatarImage src={user?.profileImage} alt={user.name} />
+              <AvatarImage src={profileImage} alt={name} />
               <AvatarFallback>
                 <User className="h-10 w-10" />
               </AvatarFallback>
             </Avatar>
             <div>
-              <CardTitle className="text-2xl">{user.name}</CardTitle>
-              <CardDescription>{user.message}</CardDescription>
+              <CardTitle className="text-2xl">{name}</CardTitle>
+              <CardDescription>{message}</CardDescription>
             </div>
           </div>
         </CardHeader>
@@ -67,14 +78,14 @@ export default function ProfilePage() {
               <Label htmlFor="email">{t('email')}</Label>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-muted-foreground" />
-                <Input id="email" value={user.email} readOnly />
+                <Input id="email" value={email} readOnly />
               </div>
             </div>
             <div className="space-y-2">
               <Label htmlFor="wallet">{t('wallet_address')}</Label>
               <div className="flex items-center space-x-2">
                 <Wallet className="h-4 w-4 text-muted-foreground" />
-                <Input id="wallet" value={user.walletAddress} readOnly />
+                <Input id="wallet" value={walletAddress} readOnly />
               </div>
             </div>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -85,7 +96,7 @@ export default function ProfilePage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold">{user.projectsCreated}</p>
+                  <p className="text-2xl font-bold">{projectsCreated}</p>
                 </CardContent>
               </Card>
               <Card>
@@ -95,9 +106,7 @@ export default function ProfilePage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold">
-                    {user.projectsBackedCount}
-                  </p>
+                  <p className="text-2xl font-bold">{projectsBackedCount}</p>
                 </CardContent>
               </Card>
               <Card>

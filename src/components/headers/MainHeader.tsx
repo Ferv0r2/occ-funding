@@ -47,9 +47,9 @@ export const MainHeader = () => {
               </span>
             </Link>
             <nav className="flex gap-6">
-              {navigation.map((item) => (
-                <Link key={item.path} href={item.path}>
-                  <Button variant="ghost">{t(item.label)}</Button>
+              {navigation.map(({ path, label }) => (
+                <Link key={path} href={path}>
+                  <Button variant="ghost">{t(label)}</Button>
                 </Link>
               ))}
             </nav>

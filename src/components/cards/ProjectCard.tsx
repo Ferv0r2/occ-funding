@@ -19,38 +19,38 @@ interface ProjectCardProps {
 
 export const ProjectCard = ({ project }: ProjectCardProps) => {
   const t = useTranslations('Project');
-  const progress = (project.currentFunding / project.fundingGoal) * 100;
+  const { id, title, bannerImage, description, currentFunding, fundingGoal } =
+    project;
+  const progress = (currentFunding / fundingGoal) * 100;
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{project.title}</CardTitle>
+        <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent>
-        {project.bannerImage ? (
+        {bannerImage ? (
           <Image
-            src={project.bannerImage || ''}
+            src={bannerImage}
             height={400}
             width={600}
-            alt={project.title || 'Project banner'}
+            alt={title || 'Project banner'}
             className="w-full rounded-lg"
           />
         ) : (
           <div className="mb-2 h-64 w-full rounded-lg bg-gray-300" />
         )}
-        <p className="mb-4 text-sm text-muted-foreground">
-          {project.description}
-        </p>
+        <p className="mb-4 text-sm text-muted-foreground">{description}</p>
         <Progress value={progress} className="mb-2" />
         <p className="text-sm font-medium">
           {t('raised_of', {
-            current: formatCurrency(project.currentFunding),
-            goal: formatCurrency(project.fundingGoal),
+            current: formatCurrency(currentFunding),
+            goal: formatCurrency(fundingGoal),
           })}
         </p>
       </CardContent>
       <CardFooter>
-        <Link href={`/projects/${project.id}`} className="w-full">
+        <Link href={`/projects/${id}`} className="w-full">
           <Button className="w-full">{t('view_project')}</Button>
         </Link>
       </CardFooter>

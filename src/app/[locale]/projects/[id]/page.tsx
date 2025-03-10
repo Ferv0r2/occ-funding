@@ -23,7 +23,7 @@ import { formatCurrency, formatDecimal } from '@/lib/utils/format-data';
 import { IProjectDetail } from '@/types/project/IProjectDetail';
 
 const fetchProjectDetail = async (id: string): Promise<IProjectDetail> => {
-  const res = await fetch(`/api/projects/${id}`, {});
+  const res = await fetch(`/api/projects/${id}`);
   if (!res.ok) {
     throw new Error('Network response was not ok');
   }
@@ -37,22 +37,46 @@ const statusColorMap: Record<ProjectStatus, string> = {
 };
 
 export default function ProjectPage() {
-  const params = useParams();
-
+  const { id } = useParams();
   const t = useTranslations('Project');
+
   const { isLoading, data: projectInfo = null } = useQuery({
-    queryKey: ['projects', params?.id],
-    queryFn: () => fetchProjectDetail(params.id as string),
-    enabled: !!params?.id,
+    queryKey: ['projects', id],
+    queryFn: () => fetchProjectDetail(id as string),
+    enabled: !!id,
   });
 
   if (isLoading || !projectInfo) {
     return <div className="mx-auto max-w-2xl py-8">{t('loading_project')}</div>;
   }
 
-  const progress = (projectInfo.currentFunding / projectInfo.fundingGoal) * 100;
-  const daysLeft = getDaysLeft(projectInfo.expiredAt);
-  const statusColor = statusColorMap[projectInfo.status] || '';
+  const {
+    title,
+    description,
+    bannerImage,
+    projectDetailDescription,
+    milestones,
+    updates,
+    risks,
+    currentFunding,
+    fundingGoal,
+    backers,
+    expiredAt,
+    status,
+    creator,
+  } = projectInfo;
+
+  const progress = (currentFunding / fundingGoal) * 100;
+  const daysLeft = getDaysLeft(expiredAt);
+  const statusColor = statusColorMap[status] || '';
+
+  const {
+    name: creatorName,
+    profileImage: creatorProfileImage,
+    projectsCreated: creatorProjectsCreated,
+    bio,
+    successfulProjects,
+  } = creator;
 
   return (
     <div className="container mx-auto py-8">
@@ -62,20 +86,18 @@ export default function ProjectPage() {
             <CardHeader>
               <div className="flex items-start justify-between">
                 <div>
-                  <CardTitle className="mb-2 text-3xl">
-                    {projectInfo.title}
-                  </CardTitle>
-                  <CardDescription>{projectInfo.description}</CardDescription>
+                  <CardTitle className="mb-2 text-3xl">{title}</CardTitle>
+                  <CardDescription>{description}</CardDescription>
                 </div>
-                <Badge className={statusColor}>{t(projectInfo.status)}</Badge>
+                <Badge className={statusColor}>{t(status)}</Badge>
               </div>
             </CardHeader>
             <CardContent>
               <Image
-                src={projectInfo?.bannerImage ?? ''}
+                src={bannerImage ?? ''}
                 height={200}
                 width={300}
-                alt={projectInfo.title}
+                alt={title}
                 className="mb-6 w-full max-w-2xl rounded-lg object-cover"
               />
               <Tabs defaultValue="story" className="w-full">
@@ -86,13 +108,13 @@ export default function ProjectPage() {
                 </TabsList>
                 <TabsContent value="story">
                   <p className="text-muted-foreground">
-                    {projectInfo.projectDetailDescription}
+                    {projectDetailDescription}
                   </p>
                   <h3 className="mb-2 mt-4 text-lg font-semibold">
                     {t('project_milestones')}
                   </h3>
                   <ul className="space-y-2">
-                    {projectInfo?.milestones?.map((milestone, index) => (
+                    {milestones?.map((milestone, index) => (
                       <li key={index} className="flex items-center space-x-2">
                         <input
                           type="checkbox"
@@ -110,7 +132,7 @@ export default function ProjectPage() {
                   </ul>
                 </TabsContent>
                 <TabsContent value="updates">
-                  {projectInfo?.updates?.map((update, index) => (
+                  {updates?.map((update, index) => (
                     <div key={index} className="mb-4">
                       <h3 className="text-lg font-semibold">{update.title}</h3>
                       <p className="mb-2 text-sm text-muted-foreground">
@@ -121,7 +143,7 @@ export default function ProjectPage() {
                   ))}
                 </TabsContent>
                 <TabsContent value="risks">
-                  <p className="text-muted-foreground">{projectInfo.risks}</p>
+                  <p className="text-muted-foreground">{risks}</p>
                 </TabsContent>
               </Tabs>
             </CardContent>
@@ -135,8 +157,8 @@ export default function ProjectPage() {
                   <Progress value={progress} className="mb-2 h-2" />
                   <div className="flex text-sm">
                     {t('raised_of', {
-                      current: formatCurrency(projectInfo.currentFunding),
-                      goal: formatCurrency(projectInfo.fundingGoal),
+                      current: formatCurrency(currentFunding),
+                      goal: formatCurrency(fundingGoal),
                     })}
                   </div>
                 </div>
@@ -145,7 +167,7 @@ export default function ProjectPage() {
                     <Users className="h-5 w-5 text-muted-foreground" />
                     <span>
                       {t('backers_count', {
-                        count: formatDecimal(projectInfo.backers),
+                        count: formatDecimal(backers),
                       })}
                     </span>
                   </div>
@@ -171,33 +193,26 @@ export default function ProjectPage() {
             <CardContent>
               <div className="mb-4 flex items-center space-x-4">
                 <Avatar className="h-12 w-12">
-                  <AvatarImage
-                    src={projectInfo.creator?.profileImage}
-                    alt={projectInfo.creator.name}
-                  />
-                  <AvatarFallback>{projectInfo.creator.name[0]}</AvatarFallback>
+                  <AvatarImage src={creatorProfileImage} alt={creatorName} />
+                  <AvatarFallback>{creatorName[0]}</AvatarFallback>
                 </Avatar>
                 <div>
-                  <h3 className="font-semibold">{projectInfo.creator.name}</h3>
+                  <h3 className="font-semibold">{creatorName}</h3>
                   <p className="text-sm text-muted-foreground">
-                    {projectInfo.creator.projectsCreated} projects created
+                    {creatorProjectsCreated} projects created
                   </p>
                 </div>
               </div>
-              <p className="mb-4 text-sm text-muted-foreground">
-                {projectInfo.creator.bio}
-              </p>
+              <p className="mb-4 text-sm text-muted-foreground">{bio}</p>
               <div className="flex justify-between text-sm">
                 <span>
                   {t('created_count', {
-                    count: formatDecimal(projectInfo.creator.projectsCreated),
+                    count: formatDecimal(creatorProjectsCreated),
                   })}
                 </span>
                 <span>
                   {t('successful_count', {
-                    count: formatDecimal(
-                      projectInfo.creator.successfulProjects,
-                    ),
+                    count: formatDecimal(successfulProjects),
                   })}
                 </span>
               </div>
